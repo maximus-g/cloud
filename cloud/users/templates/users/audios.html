@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block body %}
+<h1>Audios:</h1>
+{% if audios|length < 1 %}
+	<p>You have not uploaded any videos yet!</p>
+{% else %}
+	{% for audio in audios %}
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Date Created</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ audio.id }}</td>
+            <td>{{ audio.name }}</td>
+            <td>{{ audio.date.date() }}</td>
+            <td><a href="#">Delete</a> <a href="#">Download</a></td>
+          </tr>
+        </tbody>
+      </table>
+	{% endfor %}
+{% endif %}
+<p><a href="{{ url_for('users.upload_audio') }}">Add</a></p>
+{% endblock body %}

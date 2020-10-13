@@ -1,0 +1,154 @@
+{% extends 'layout.html' %} {% block body %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="true">All</a>
+            <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-audio" role="tab" aria-controls="v-pills-audio" aria-selected="true">Audio</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-document" role="tab" aria-controls="v-pills-document" aria-selected="false">Document</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-image" role="tab" aria-controls="v-pills-image" aria-selected="false">Image</a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-video" role="tab" aria-controls="v-pills-video" aria-selected="false">Video</a>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
+                <h6>Files:</h6>
+                {% if files|length < 1 %}
+                    <p>You have not uploaded any file yet!</p>
+                {% else %}
+                {% for file in files %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Date Created</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ file.name }}</td>
+                                <td>{{ file.date.date() }}</td>
+                                <td><a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Download</a>
+                                    <a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Remove</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% endfor %}
+                    {% endif %}
+                    <p><a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">New</a></p>
+            </div>
+            <div class="tab-pane fade" id="v-pills-audio" role="tabpanel" aria-labelledby="v-pills-audio-tab">
+                <h6>Audios:</h6>
+                {% if audios|length < 1 %}
+                    <p>You have not uploaded any videos yet!</p>
+                {% else %}
+                {% for audio in audios %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Date Created</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ audio.id }}</td>
+                                <td>{{ audio.name }}</td>
+                                <td>{{ audio.date.date() }}</td>
+                                <td><a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Download</a>
+                                    <a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Remove</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% endfor %} {% endif %}
+                    <p><a href="{{ url_for('users.upload_audio') }}" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">New</a></p>
+            </div>
+            <div class="tab-pane fade" id="v-pills-document" role="tabpanel" aria-labelledby="v-pills-document-tab">
+                <h6>Documets:</h6>
+                {% if documents|length < 1 %}
+                    <p>You have not uploaded any document yet!</p>
+                {% else %}
+                {% for document in documents %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Date Created</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ document.id }}</td>
+                                <td>{{ document.name }}</td>
+                                <td>{{ document.date.date() }}</td>
+                                <td><a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Download</a>
+                                    <a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Remove</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% endfor %} {% endif %}
+                    <p><a href="{{ url_for('users.upload_document') }}" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">New</a></p>
+            </div>
+            <div class="tab-pane fade" id="v-pills-image" role="tabpanel" aria-labelledby="v-pills-image-tab">
+                <h6>Images:</h6>
+                {% if images|length < 1 %}
+                    <p>You have not uploaded any image yet!</p>
+                {% else %}
+                {% for image in images %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Date Created</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ image.id }}</td>
+                                <td>{{ image.name }}</td>
+                                <td>{{ image.date.date() }}</td>
+                                <td><a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Download</a>
+                                    <a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Remove</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% endfor %} {% endif %}
+                    <p><a href="{{ url_for('users.upload_image') }}" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">New</a></p>
+            </div>
+            <div class="tab-pane fade" id="v-pills-video" role="tabpanel" aria-labelledby="v-pills-video-tab">
+                {% if videos|length < 1 %}
+                    <p>You have not uploaded any videos yet!</p>
+                {% else %}
+                {% for video in videos %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Date Created</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ video.id }}</td>
+                                <td>{{ video.name }}</td>
+                                <td>{{ video.date.date() }}</td>
+                                <td><a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Download</a>
+                                    <a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Remove</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% endfor %} {% endif %}
+                    <p><a href="{{ url_for('users.upload_video') }}" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">New</a></p>
+            </div>
+        </div>
+    </div>
+    {% endblock body %}

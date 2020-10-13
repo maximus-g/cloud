@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% block body %}
+    <section id="file-upload">
+        {% if file_type == 'audio' %}
+        <form action='{{ url_for('users.upload_audio') }}' method='POST' enctype='multipart/form-data'>
+            <div class="form-group">
+            <label>Upload Audio File</label>
+            <br>
+            <input type='file' name='file'>
+            </div>
+            <button class="form-button" type='submit'>Upload</button>
+        </form>
+        {% elif file_type == 'document'  %}
+        <form action="{{ url_for('users.upload_document') }}" method='POST' enctype='multipart/form-data'>
+            <div class="form-group">
+            <label>Upload Document File</label>
+            <br>
+            <input type='file' name='file'>
+            </div>
+            <button class="form-button" type='submit'>Upload</button>
+        </form>
+        {% elif file_type == 'image' %}
+        <form action="{{ url_for('users.upload_image') }}" method='POST' enctype='multipart/form-data'>
+            <div class="form-group">
+            <label>Upload Image File</label>
+            <br>
+            <input type='file' name='file'>
+            </div>
+            <button class="form-button" type='submit'>Upload</button>
+        </form>
+        {% else %}
+        <form action="{{ url_for('users.upload_video') }}" method='POST' enctype='multipart/form-data'>
+            <div class="form-group">
+            <label>Upload Video File</label>
+            <br>
+            <input type='file' name='file'>
+            </div>
+            <button class="form-button" type='submit'>Upload</button>
+        </form>
+        {% endif %}
+    </section>
+{% endblock %}
