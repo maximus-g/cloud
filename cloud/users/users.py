@@ -55,7 +55,6 @@ def login():
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('users.home')
-        flash('Welcome!', 'success')
         return redirect(next_page)
     return render_template('users/login.html', form=form)
 
@@ -71,7 +70,6 @@ def home():
     images = user.images.all()
     videos = user.videos.all()
     files = audios + documents + images + videos
-    print(files)
     return render_template('users/home.html', audios=audios, documents=documents, images=images, videos=videos, files=files)
 
     
