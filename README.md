@@ -18,3 +18,4 @@ $ flask run
 ## todo
 - create your personal account
 - upload and download files
+# IF YOU ATTEMPT TO UPLOAD A FILE LARGER THAN 1MB YOU WILL GET THE 413 STATUS CODE.
