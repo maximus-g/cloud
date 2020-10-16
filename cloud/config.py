@@ -1,4 +1,4 @@
-import os, pymysql
+import os
 class Config:
     basedir = os.path.abspath(os.path.dirname(__file__))
     SECRET_KEY = 'this-is-a-secret-and-it-is-hard-to-guess-l-o-l'

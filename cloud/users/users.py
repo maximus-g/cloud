@@ -229,25 +229,25 @@ def upload_video():
 @login_required
 def download_audio(id):
     audio = Audio.query.get_or_404(id)
-    return send_file(BytesIO(audio.content), attachment_filename=audio.audio_name, as_attachment=True)
+    return send_file(BytesIO(audio.content), attachment_filename=audio.name, as_attachment=True)
 
 @users.route('/<int:id>/download-document')
 @login_required
 def download_document(id):
     document = Document.query.get_or_404(id)
-    return send_file(BytesIO(document.content), attachment_filename=document.document_name, as_attachment=True)
+    return send_file(BytesIO(document.content), attachment_filename=document.name, as_attachment=True)
 
 @users.route('/<int:id>/download-image')
 @login_required
 def download_image(id):
     image = Image.query.get_or_404(id)
-    return send_file(BytesIO(image.content), attachment_filename=image.image_name, as_attachment=True)
+    return send_file(BytesIO(image.content), attachment_filename=image.name, as_attachment=True)
 
 @users.route('/<int:id>/download-video')
 @login_required
 def download_video(id):
     video = Video.query.get_or_404(id)
-    return send_file(BytesIO(video.content), attachment_filename=video.video_name, as_attachment=True)
+    return send_file(BytesIO(video.content), attachment_filename=video.name, as_attachment=True)
 
 
 # FILE DELETION VIEWS:
