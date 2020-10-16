@@ -24,10 +24,3 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
-
-class UploadForm(FlaskForm):
-    ''' User form to upload file(s) '''
-    upload = FileField('file', validators=[FileRequired(),
-    FileAllowed(['txt'], 'Text files only!')])
-    submit = SubmitField('Upload')
-    
