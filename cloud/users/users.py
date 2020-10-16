@@ -33,11 +33,10 @@ def register():
                 db.session.add(user)
                 db.session.commit()
                 login_user(user, remember=form.remember.data)
-                flash('Welcome to Cloud!', 'success')
                 return redirect(url_for('users.home'))
             except:
                 return "<h1> :( Something Went Wrong!</h1>"
-    return render_template('users/register.html', form=form)
+    return render_template('users/register.html', form=form, title="Create Account")
 
 @users.route('/login', methods=['POST', 'GET'])
 def login():
@@ -56,7 +55,7 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('users.home')
         return redirect(next_page)
-    return render_template('users/login.html', form=form)
+    return render_template('users/login.html', form=form, title="Login")
 
 
 # PAGES
@@ -70,7 +69,7 @@ def home():
     images = user.images.all()
     videos = user.videos.all()
     files = audios + documents + images + videos
-    return render_template('users/home.html', audios=audios, documents=documents, images=images, videos=videos, files=files)
+    return render_template('users/home.html', audios=audios, documents=documents, images=images, videos=videos, files=files, title="Home")
 
     
 
@@ -120,7 +119,7 @@ def upload_audio():
             db.session.commit()
             flash("File Uploaded", "success")
             return redirect(url_for('users.home'))
-    return render_template('users/upload.html', file_type=file_type)
+    return render_template('users/upload.html', file_type=file_type, title="Upload-Audio")
 
 @users.route('/upload-document', methods=['POST', 'GET'])
 @login_required
@@ -154,7 +153,7 @@ def upload_document():
             db.session.commit()
             flash('File uploaded!', 'success')
             return redirect(url_for('users.home'))
-    return render_template('users/upload.html', file_type=file_type)
+    return render_template('users/upload.html', file_type=file_type, title="Upload-Document")
 
 @users.route('/image-upload', methods=['POST', 'GET'])
 @login_required
@@ -188,7 +187,7 @@ def upload_image():
             db.session.commit()
             flash('File uploaded!', 'success')
             return redirect(url_for('users.home'))
-    return render_template('users/upload.html', file_type=file_type)
+    return render_template('users/upload.html', file_type=file_type, title="Upload-Image")
 
 @users.route('/upload-video', methods=['POST', 'GET'])
 @login_required
@@ -222,7 +221,7 @@ def upload_video():
             db.session.commit()
             flash('File uploaded!', 'success')
             return redirect(url_for('users.home'))
-    return render_template('users/upload.html', file_type=file_type)
+    return render_template('users/upload.html', file_type=file_type, title="Upload-Video")
 
 
 # FILE DOWNLOAD VIEWS:
@@ -259,7 +258,7 @@ def delete_audio(id):
     db.session.delete(audio)
     db.session.commit()
     flash("File deleted!", 'danger')
-    return redirect(url_for('users.audio'))
+    return redirect(url_for('users.home'))
 
 @users.route("/<int:id>/delete-document")
 @login_required
@@ -268,7 +267,7 @@ def delete_document(id):
     db.session.delete(document)
     db.session.commit()
     flash("File deleted!", 'danger')
-    return redirect(url_for('users.document'))
+    return redirect(url_for('users.home'))
 
 @users.route("/<int:id>/delete-image")
 @login_required
@@ -277,7 +276,7 @@ def delete_image(id):
     db.session.delete(image)
     db.session.commit()
     flash("File deleted!", 'danger')
-    return redirect(url_for('users.image'))
+    return redirect(url_for('users.home'))
 
 @users.route("/<int:id>/delete-video")
 @login_required
@@ -286,7 +285,7 @@ def delete_video(id):
     db.session.delete(video)
     db.session.commit()
     flash("File deleted!", 'danger')
-    return redirect(url_for('users.video'))
+    return redirect(url_for('users.home'))
 
 # LOGOUT:
 @users.route('/logout')
@@ -298,13 +297,31 @@ def logout():
 # DELETE/REMOVE CLOUD ACCCOUNT:
 @users.route('/delete-account')
 @login_required
-def delete_account(user):
+def delete_account():
     user = User.query.filter_by(username=current_user.username).first()
-    files = user.files.all()
+    audios = user.audios.all()
+    documents = user.documents.all()
+    images = user.images.all()
+    videos = user.videos.all()
 
-    if files != None:
-        for file in files:
-            db.session.delete(file)
+    if audios != None:
+        for audio in audios:
+            db.session.delete(audio)
+        db.session.commit()
+    
+    if documents != None:
+        for document in documents:
+            db.session.delete(document)
+        db.session.commit()
+
+    if images != None:
+        for image in images:
+            db.session.delete(image)
+        db.session.commit()
+    
+    if videos != None:
+        for video in videos:
+            db.session.delete(video)
         db.session.commit()
 
     db.session.delete(user)

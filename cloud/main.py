@@ -5,7 +5,6 @@ from cloud import app
 
 @app.route("/")
 def index():
-    flash("Welcome to Cloud")
     return render_template('index.html')
 
 @app.route("/about")

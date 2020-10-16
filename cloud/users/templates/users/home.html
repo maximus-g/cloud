@@ -3,7 +3,7 @@
     <div class="collapse navbar-collapse nav justify-content-center" id="navbarSupportedContent">
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-outline-primary my-2 my-sm-1" type="submit">Search</button>
         </form>
     </div>
     <div class="dropdown">
@@ -11,42 +11,24 @@
         Add New
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Audio</a>
-            <a class="dropdown-item" href="#">Document</a>
-            <a class="dropdown-item" href="#">Image</a>
-            <a class="dropdown-item" href="#">Video</a>
+            <a class="dropdown-item" href="{{ url_for('users.upload_audio') }}">Audio</a>
+            <a class="dropdown-item" href="{{ url_for('users.upload_document') }}">Document</a>
+            <a class="dropdown-item" href="{{ url_for('users.upload_image') }}">Image</a>
+            <a class="dropdown-item" href="{{ url_for('users.upload_video') }}">Video</a>
         </div>
     </div>
 </nav>
 <div class="row">
     <div class="col-md-3">
         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="true">All</a>
-            <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-audio" role="tab" aria-controls="v-pills-audio" aria-selected="true">Audio</a>
-            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-document" role="tab" aria-controls="v-pills-document" aria-selected="false">Document</a>
-            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-image" role="tab" aria-controls="v-pills-image" aria-selected="false">Image</a>
-            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-video" role="tab" aria-controls="v-pills-video" aria-selected="false">Video</a>
+            <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-audio" role="tab" aria-controls="v-pills-audio" aria-selected="true">Audios</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-document" role="tab" aria-controls="v-pills-document" aria-selected="false">Documents</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-image" role="tab" aria-controls="v-pills-image" aria-selected="false">Images</a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-video" role="tab" aria-controls="v-pills-video" aria-selected="false">Videos</a>
         </div>
     </div>
     <div class="col-9">
         <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
-                <h6>Files:</h6>
-                {% if files|length < 1 %}
-                    <p>You have not uploaded any file yet!</p>
-                {% else %}
-                {% for file in files %}
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      {{ file.name }}
-                      <span class="badge badge-primary badge-pill">{{ file.date.date() }}</span>
-                      <span><a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Download</a>
-                            <a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Remove</a></span>      
-                    </li>
-                </ul>
-                {% endfor %}
-                {% endif %}       
-            </div>
             <div class="tab-pane fade" id="v-pills-audio" role="tabpanel" aria-labelledby="v-pills-audio-tab">
                 <h6>Audios:</h6>
                 {% if audios|length < 1 %}
@@ -57,8 +39,8 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       {{ audio.name }}
                       <span class="badge badge-primary badge-pill">{{ audio.date.date() }}</span>
-                      <span><a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Download</a>
-                            <a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Remove</a></span>      
+                      <span><a href="{{ url_for('users.download_audio', id=audio.id) }}" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Download</a>
+                            <a href="{{ url_for('users.delete_audio', id=audio.id) }}" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Remove</a></span>      
                     </li>
                 </ul>
                 {% endfor %}
@@ -74,8 +56,8 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       {{ document.name }}
                       <span class="badge badge-primary badge-pill">{{ document.date.date() }}</span>
-                      <span><a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Download</a>
-                            <a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Remove</a></span>      
+                      <span><a href="{{ url_for('users.download_document', id=document.id) }}" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Download</a>
+                            <a href="{{ url_for('users.delete_document', id=document.id) }}" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Remove</a></span>      
                     </li>
                 </ul>
                 {% endfor %}
@@ -91,8 +73,8 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       {{ image.name }}
                       <span class="badge badge-primary badge-pill">{{ image.date.date() }}</span>
-                      <span><a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Download</a>
-                            <a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Remove</a></span>      
+                      <span><a href="{{ url_for('users.download_image', id=image.id) }}" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Download</a>
+                            <a href="{{ url_for('users.delete_image', id=image.id) }}" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Remove</a></span>      
                     </li>
                 </ul>
                 {% endfor %}
@@ -107,8 +89,8 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       {{ video.name }}
                       <span class="badge badge-primary badge-pill">{{ video.date.date() }}</span>
-                      <span><a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Download</a>
-                            <a href="#" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Remove</a></span>      
+                      <span><a href="{{ url_for('users.download_video', id=video.id) }}" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Download</a>
+                            <a href="{{ url_for('users.delete_video', id=video.id) }}" class="btn btn-outline-primary btn-sm m-0 waves-effect" role="button" aria-pressed="true">Remove</a></span>      
                     </li>
                 </ul>
                 {% endfor %}

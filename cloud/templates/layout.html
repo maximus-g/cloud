@@ -9,13 +9,18 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <!--<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
-    <title>Cloud</title>
+    {% if title %}
+        <title>Cloud - {{ title }}</title>
+    {% else %}
+        <title>Cloud</title>
+    {% endif %}
 </head>
 
 <body>
     <header class="site-header">
-        <nav class="navbar navbar-default navbar-static-top navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">
                 <img src="{{ url_for('static', filename='thumbnails/document.png') }}" width="25" height="25" class="d-inline-block align-top" alt=""> Cloud
             </a>
@@ -25,16 +30,28 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 {% if current_user.is_anonymous %}
                 <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link" href="{{ url_for('users.login') }}" data-toggle="tooltip" data-placement="top" title="Check out your files">Sign in</a>
-                    <a class="nav-item nav-link" href="{{ url_for('users.register') }}" data-toggle="tooltip" data-placement="top" title="Create account">Sign up</a>
+                    <a class="nav-item nav-link" href="#" data-toggle="tooltip" data-placement="top" title="Learn about us!">About</a>
+                    <a class="nav-item nav-link" href="#" data-toggle="tooltip" data-placement="top" title="See our services!">Services</a>
+                    <a class="nav-item nav-link" href="#" data-toggle="tooltip" data-placement="top" title="Want some hel?">Help</a>
+                    <a class="nav-item nav-link" href="#" data-toggle="tooltip" data-placement="top" title="Contact us">Contacts</a>
                 </div>
                 {% else %}
                 <div class="navbar-nav ml-auto">
                     <a class="nav-item nav-link" href="{{ url_for('users.home') }}">Home <span class="sr-only">(current)</span></a>
                     <a class="nav-item nav-link" href="#" data-toggle="tooltip" data-placement="top" title="Learn about us!">About</a>
                     <a class="nav-item nav-link" href="#" data-toggle="tooltip" data-placement="top" title="See our services!">Services</a>
-                    <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
-                    <a class="nav-link disabled" href="#" data-toggle="tooltip" data-placement="top" title="current logged-in user">({{current_user.username}})</a>
+                    <a class="nav-item nav-link" href="#" data-toggle="tooltip" data-placement="top" title="Want some hel?">Help</a>
+                    <a class="nav-item nav-link" href="#" data-toggle="tooltip" data-placement="top" title="Contact us">Contacts</a>
+                    <a class="nav-item nav-link disabled" href="#" data-toggle="tooltip" data-placement="top" title="See our services!">({{ current_user.username }})</a>
+                    <div class="btn-group dropleft">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            More
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ url_for('users.logout') }}">Logout</a>
+                            <a class="dropdown-item" href="{{ url_for('users.delete_account') }}">Delete Account</a>
+                        </div>
+                    </div>
                 </div>
                 {% endif %}
             </div>
@@ -49,6 +66,11 @@
         </p>
         {% endfor %} {% endif %} {% endwith %} {% block body %}{% endblock %}
     </main>
+<footer class="page-footer fixed-bottom font-small blue">
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      Cloud
+    </div>
+</footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

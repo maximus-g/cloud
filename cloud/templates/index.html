@@ -1,3 +1,15 @@
 {% extends 'layout.html' %}
 {% block body %}
+<h1>Welcome to Cloud.</h1>
+<h2>Stress of losing your media files because you<br>
+    stored them on your computer or mobile phone is over!</h2>
+<p>With Cloud, you can just store them in the cloud (no pun intended) and download whenever and wherever you like. Now try it out.</p>
+
+<div class="border border-light p-3 mb-4">      
+    <div class="text-center">
+        <a href="{{ url_for('users.login') }}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Sign in</a>
+        <span><a href="{{ url_for('users.register') }}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Sign up</a></span>
+    </div> 
+</div>
+
 {% endblock body %}
