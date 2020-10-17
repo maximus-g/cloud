@@ -1,9 +1,15 @@
 import os
+from dotenv import load_dotenv
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(basedir, '.env'))
+
+
 class Config:
-    basedir = os.path.abspath(os.path.dirname(__file__))
-    SECRET_KEY = 'this-is-a-secret-and-it-is-hard-to-guess-l-o-l'
+    FLASK_APP = environ.get('FLASK_APP')
+    SECRET_KEY = environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI='sqlite:///'+os.path.join(basedir, 'database.db')
-    MAX_CONTENT_LENGTH = 1024 * 1024
+    FLASK_ENV = development
     AUD_ALLOWED_EXTENSIONS = {'mp3', 'm4a', 'flac', 'wav', 'wma'}
     DOC_ALLOWED_EXTENSIONS = {'doc', 'docx', 'odt', 'pdf', 'xls', 'xlsx',\
         'ods', 'ppt', 'pptx', 'txt'}
